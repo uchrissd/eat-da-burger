@@ -1,3 +1,4 @@
+// Import MySQL connection.
 var connection = require("../config/connection.js");
 
 function printQuestionMarks(num) {
@@ -10,7 +11,6 @@ function printQuestionMarks(num) {
   return arr.toString();
 }
 
-// Helper function to convert object key/value pairs to SQL syntax
 function objToSql(ob) {
   var arr = [];
 
@@ -39,12 +39,12 @@ var orm = {
     var queryString = "SELECT * FROM " + tableInput + ";";
     connection.query(queryString, function(err, result) {
       if (err) {
-        throw err;
+        console.log(err);
       }
       cb(result);
     });
   },
-  insertOne: function(table, cols, vals, cb) {
+  create: function(table, cols, vals, cb) {
     var queryString = "INSERT INTO " + table;
 
     queryString += " (";
@@ -54,18 +54,18 @@ var orm = {
     queryString += printQuestionMarks(vals.length);
     queryString += ") ";
 
-    console.log(queryString);
+    console.log("creating burger (queryString)", queryString);
 
     connection.query(queryString, vals, function(err, result) {
       if (err) {
-        throw err;
+        console.log(err);
       }
 
       cb(result);
     });
   },
-  // An example of objColVals would be {name: panther, sleepy: true}
-  updateOne: function(table, objColVals, condition, cb) {
+  // An example of objColVals, condition would be {name: Bacon Burger, devoured: false}
+  update: function(table, objColVals, condition, cb) {
     var queryString = "UPDATE " + table;
 
     queryString += " SET ";
@@ -73,10 +73,10 @@ var orm = {
     queryString += " WHERE ";
     queryString += condition;
 
-    console.log(queryString);
+    console.log("updating burger (queryString)", queryString);
     connection.query(queryString, function(err, result) {
       if (err) {
-        throw err;
+        console.log(err);
       }
 
       cb(result);

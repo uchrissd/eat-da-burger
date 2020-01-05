@@ -1,42 +1,43 @@
-<img src="assets/img/burger.jpeg" alt="Picture of a burger" class="center">
+<img src="assets/img/burgerImage.png" alt="Burger" class="center">
 
+<h1>Eat-Da-Burger!</h1>
 
-<h1>Eat Da Burger</h1>
+<h2>Burger Not Devoured</h2>
 
-<h2>Burgers not yet devoured!</h2>
+<ol>
+    {{#each burgers}}
+    {{#unless devoured}}
+    <li>
+        {{burger_name}}
+        <button class="change-devour" data-id="{{id}}" data-newdevour="{{devour}}">
+            Devour it!
+        </button>
+    </li>
+    {{/unless}}
+    {{/each}}
+</ol>
 
-<br>
+<h2>Burgers Devoured</h2>
 
-<div class="notDevoured">
-    <ol>
-        {{#each burgers}}
-        {{#unless devour}}
-        {{> burgers/burger-block devour=false}}
-        {{/unless}}
-        {{/each}}
-    </ol>
-</div>
+<ol>
+    {{#each burgers}}
+    {{#if devoured}}
+    <li>
+        {{burger_name}}
+    </li>
+    {{/if}}
+    {{/each}}
+</ol>
 
-<div class="devoured">
-    <ol>
-        {{#each burgers}}
-        {{#if devour}}
-        {{> burgers/burger-devour-block devour=true}}
-        {{/if}}
-        {{/each}}
-    </ol>
-</div>
-
-<form class="create-form" style="text-align: center">
+<h2>Enter and submit a new burger here</h2>
+<form class="create-form">
 
     <div class="form-group">
-        <input type="text" id="burger" name="name">
+        <label for="burgerName" class="center">Burger Name:</label>
     </div>
 
-
-    <button type="submit">Submit</button>
+    <div class="form-group">
+        <input type="text" class="center" id="burgerName" name="burger_name" devoured="false">
+    </div>
+    <button type="submit" id="submitBtn">Submit</button>
 </form>
-
-
-
-<h3>Enter the type of burger you want to eat then click the "submit" button!</h3>
