@@ -14,7 +14,7 @@ $(function() {
       type: "POST",
       data: newBurger
     }).then(function() {
-      console.log("added burger.");
+      console.log("new burger");
       // Reload the page to get the updated list
       location.reload();
     });
@@ -31,7 +31,7 @@ $(function() {
       type: "PUT",
       data: newDevourState
     }).then(function() {
-      console.log("devoured burger");
+      console.log("buger devoured");
       // Reload the page to get the updated list
       location.reload();
     });
