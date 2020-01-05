@@ -5,29 +5,27 @@
 
 <h2>Burgers not yet devoured!</h2>
 
-<ul>
-    {{#each burgers}}
-    {{#unless devoured}}
-    <li>
-        {{burger_name}}
-        <button>Devour the burger!</button>
-    </li>
-    {{/unless}}
-    {{/each}}
-</ul>
+<br>
 
-<h2>Burgers devoured!</h2>
+<div class="notDevoured">
+    <ol>
+        {{#each burgers}}
+        {{#unless devour}}
+        {{> burgers/burger-block devour=false}}
+        {{/unless}}
+        {{/each}}
+    </ol>
+</div>
 
-<ul>
-    {{#each burgers}}
-    {{#unless devoured}}
-    <li>
-        {{burger_name}}
-
-    </li>
-    {{/if}}
-    {{/each}}
-</ul>
+<div class="devoured">
+    <ol>
+        {{#each burgers}}
+        {{#if devour}}
+        {{> burgers/burger-devour-block devour=true}}
+        {{/if}}
+        {{/each}}
+    </ol>
+</div>
 
 <form class="create-form" style="text-align: center">
 
@@ -36,7 +34,17 @@
     </div>
 
 
-    <button type="submit" id="submiButton">Submit</button>
+    <button type="submit">Submit</button>
+</form>
+
+<form class="create-form" style="text-align: center">
+
+    <div class="form-group">
+        <input type="text" id="burger" name="name">
+    </div>
+
+
+    <button type="submit" id="submitButton">Submit</button>
 </form>
 
 <h3>Enter the type of burger you want to eat then click the "submit" button!</h3>
