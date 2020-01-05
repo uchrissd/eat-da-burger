@@ -1,42 +1,29 @@
-// Make sure we wait to attach our handlers until the DOM is fully loaded.
-$(function() {
-  $(".change-devour").on("click", function(event) {
-    var id = $(this).data("id");
+var express = require("express");
 
-    var newDevourState = {
-      devoured: 1
-    };
+var PORT = process.env.PORT || 8080;
 
-    // Send the PUT request.
-    $.ajax("/api/burgers/" + id, {
-      type: "PUT",
-      data: newDevourState
-    }).then(function() {
-      console.log("Burger devoured!");
-      // Reload the page to get the updated list
-      location.reload();
-    });
-  });
+var app = express();
 
-  $(".create-form").on("submit", function(event) {
-    // Make sure to preventDefault on a submit event.
-    event.preventDefault();
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
 
-    var newBurger = {
-      burger_name: $("#burgerName")
-        .val()
-        .trim(),
-      devoured: 0
-    };
+// Parse application body as JSON
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-    // Send the POST request.
-    $.ajax("/api/burgers", {
-      type: "POST",
-      data: newBurger
-    }).then(function() {
-      console.log("created new burger");
-      // Reload the page to get the updated list
-      location.reload();
-    });
-  });
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// Import routes and give the server access to them.
+var routes = require("./controllers/burgers_controller.js");
+
+app.use(routes);
+
+// Start our server so that it can begin listening to client requests.
+app.listen(PORT, function() {
+  // Log (server-side) when our server has started
+  console.log("Server listening on: http://localhost:" + PORT);
 });
