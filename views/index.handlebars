@@ -3,6 +3,32 @@
 
 <h1>Eat Da Burger</h1>
 
+<h2>Burgers not yet devoured!</h2>
+
+<ul>
+    {{#each burgers}}
+    {{#unless devoured}}
+    <li>
+        {{burger_name}}
+        <button>Devour the burger!</button>
+    </li>
+    {{/unless}}
+    {{/each}}
+</ul>
+
+<h2>Burgers devoured!</h2>
+
+<ul>
+    {{#each burgers}}
+    {{#unless devoured}}
+    <li>
+        {{burger_name}}
+
+    </li>
+    {{/if}}
+    {{/each}}
+</ul>
+
 <form class="create-form" style="text-align: center">
 
     <div class="form-group">
