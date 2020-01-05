@@ -22,3 +22,18 @@ h1 {
 h3 {
   text-align: center;
 }
+
+.notDevoured {
+  margin: 0 10px 20px 500px;
+  padding: 10px;
+  display: inline-block;
+  background-color: white;
+}
+
+.devoured {
+  margin: 0 0 20px 0;
+  padding: 10px;
+  display: inline-block;
+  color: gray;
+  background-color: white;
+}
